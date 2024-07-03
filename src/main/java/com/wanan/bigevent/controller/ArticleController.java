@@ -4,6 +4,7 @@ import com.wanan.bigevent.pojo.Article;
 import com.wanan.bigevent.pojo.Result;
 import com.wanan.bigevent.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,7 +15,7 @@ public class ArticleController {
     private ArticleService articleService;
 
     @PostMapping("/add")
-    public Result addArticle(@RequestBody Article article) {
+    public Result addArticle(@RequestBody @Validated Article article) {
         articleService.addArticle(article);
         return Result.success();
     }

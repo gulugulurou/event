@@ -1,6 +1,7 @@
 package com.wanan.bigevent.controller;
 
 import com.wanan.bigevent.pojo.Article;
+import com.wanan.bigevent.pojo.PageBean;
 import com.wanan.bigevent.pojo.Result;
 import com.wanan.bigevent.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,15 @@ public class ArticleController {
         articleService.addArticle(article);
         return Result.success();
     }
+
     @GetMapping("/list")
-    public Result<String> list() {
-        return Result.success("所有文章清单......");
+    public Result<PageBean<Article>> list(
+            Integer pageNum,
+            Integer pageSize,
+            @RequestParam(required = false) Integer categoryId,
+            @RequestParam(required = false) String state
+    ) {
+        PageBean<Article> page = articleService.list(pageNum, pageSize, categoryId, state);
+        return Result.success(page);
     }
 }
